@@ -44,11 +44,6 @@ export default {
   font-size: 20px;
 }
 
-#logo-url:hover {
-  transform: rotate(360deg);
-  transition: transform 0.5s;
-}
-
 #nav {
   background-color: #7f1d1d;
   border-bottom: 3px solid #f97316;
