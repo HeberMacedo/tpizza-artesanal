@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="pedido-page">
     <alerta-component-vue :tipo="alerta.tipo" :mensagem="alerta.mensagem" />
     <form id="pedido-form" @submit="criarPedido($event)">
-      <div>
+      <div class="pizza-preview">
         <p id="nome-pizza-content">
           {{ pizza && pizza.nome ? pizza.nome : "--" }}
         </p>
@@ -11,77 +11,83 @@
           :src="pizza && pizza.foto ? pizza.foto : ''"
         />
       </div>
-      <div class="inputs" id="form-pedido">
-        <label>Nome do Cliente</label>
-        <input
-          v-model="nomeCliente"
-          type="text"
-          placeholder="Digite o nome do cliente"
-          id="nome-cliente"
-        />
-      </div>
-      <div class="inputs">
-        <label>Tamanho da pizza</label>
-        <select
-          v-model="tamanhoSelecionado"
-          name="tamanho-pizza"
-          id="tamanho-pizza"
-        >
-          <option value="" selected>Selecione o tamanho</option>
-          <option
-            v-for="tamanho in listaTamanhos"
-            :key="tamanho.id"
-            :value="tamanho"
-          >
-            {{ tamanho.descricao }}
-          </option>
-        </select>
-      </div>
-      <div class="inputs">
-        <label id="opcionais-titulo">Monte sua pizza</label>
-        <label id="opcionais-subtitulo">Escolha ate 2 sabores</label>
-
-        <div
-          v-for="sabor in listaSabores"
-          :key="sabor.id"
-          class="checkbox-container"
-        >
-          <input
-            type="checkbox"
-            :name="sabor.nome"
-            :value="sabor"
-            v-model="listaSaboresSelecionados"
-          />
-          <span>{{ sabor.nome }}</span>
-        </div>
-
-        <label>Escolha a borda</label>
-
-        <select v-model="bordaSelecionada" name="borda-pizza" id="borda-pizza">
-          <option value="">Sem borda recheada</option>
-          <option v-for="borda in listaBordas" :key="borda.id" :value="borda">
-            {{ borda.nome }}
-          </option>
-        </select>
-
-        <label>Adicione uma bebida</label>
-
-        <div
-          v-for="bebida in listaBebidas"
-          :key="bebida.id"
-          class="checkbox-container"
-        >
-          <input
-            type="checkbox"
-            :name="bebida.nome"
-            :value="bebida"
-            v-model="listaBebidasSelecionadas"
-          />
-          <span>{{ bebida.nome }}</span>
-        </div>
-
+      <div class="form-card">
         <div class="inputs">
-          <input type="submit" class="submit-btn" value="Confirmar Pedido" />
+          <label>Nome do Cliente</label>
+          <input
+            v-model="nomeCliente"
+            type="text"
+            placeholder="Digite o nome do cliente"
+            id="nome-cliente"
+          />
+        </div>
+        <div class="inputs">
+          <label>Tamanho da pizza</label>
+          <select
+            v-model="tamanhoSelecionado"
+            name="tamanho-pizza"
+            id="tamanho-pizza"
+          >
+            <option value="" selected>Selecione o tamanho</option>
+            <option
+              v-for="tamanho in listaTamanhos"
+              :key="tamanho.id"
+              :value="tamanho"
+            >
+              {{ tamanho.descricao }}
+            </option>
+          </select>
+        </div>
+        <div class="inputs">
+          <label id="opcionais-titulo">Monte sua pizza</label>
+          <p class="campo-ajuda">Escolha ate 2 sabores</p>
+
+          <div class="opcoes-grid">
+            <label
+              v-for="sabor in listaSabores"
+              :key="sabor.id"
+              class="checkbox-container"
+            >
+              <input
+                type="checkbox"
+                :name="sabor.nome"
+                :value="sabor"
+                v-model="listaSaboresSelecionados"
+              />
+              <span>{{ sabor.nome }}</span>
+            </label>
+          </div>
+
+          <label>Escolha a borda</label>
+
+          <select v-model="bordaSelecionada" name="borda-pizza" id="borda-pizza">
+            <option value="">Sem borda recheada</option>
+            <option v-for="borda in listaBordas" :key="borda.id" :value="borda">
+              {{ borda.nome }}
+            </option>
+          </select>
+
+          <label>Adicione uma bebida</label>
+
+          <div class="opcoes-grid">
+            <label
+              v-for="bebida in listaBebidas"
+              :key="bebida.id"
+              class="checkbox-container"
+            >
+              <input
+                type="checkbox"
+                :name="bebida.nome"
+                :value="bebida"
+                v-model="listaBebidasSelecionadas"
+              />
+              <span>{{ bebida.nome }}</span>
+            </label>
+          </div>
+
+          <div class="inputs">
+            <input type="submit" class="submit-btn" value="Confirmar Pedido" />
+          </div>
         </div>
       </div>
     </form>
@@ -204,12 +210,24 @@ export default {
 </script>
 
 <style scoped>
-#foto-content {
-  margin-bottom: 16px;
-  border-radius: 16px;
+.pedido-page {
+  width: min(980px, calc(100% - 32px));
+  margin: 0 auto 56px;
+}
+
+#pedido-form {
+  width: 100%;
+}
+
+.pizza-preview {
   position: relative;
-  z-index: -1;
-  justify-content: center;
+  overflow: hidden;
+  border-radius: 8px;
+  margin: 0 auto 20px;
+}
+
+#foto-content {
+  display: block;
   width: 100%;
   height: 180px;
   object-fit: cover;
@@ -218,16 +236,25 @@ export default {
 #nome-pizza-content {
   font-size: 43px;
   font-weight: bold;
-  text-align: start;
-  margin-bottom: -90px;
-  margin-left: 40px;
-  color: antiquewhite;
-  padding: 16px;
+  text-align: left;
+  color: #fff7ed;
+  padding: 24px 32px;
+  margin: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
 }
 
-#form-pedido {
-  max-width: 750px;
+.form-card {
+  width: min(720px, 100%);
   margin: 0 auto;
+  padding: 24px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .inputs {
@@ -238,10 +265,9 @@ export default {
 
 label {
   font-weight: bold;
-  margin-bottom: 16px;
+  margin: 0 0 10px;
   color: #222;
   padding: 5px 12px;
-  flex-direction: start;
   display: flex;
   border-left: 4px solid #c2410c;
 }
@@ -249,11 +275,12 @@ label {
 input,
 select {
   padding: 12px;
-  width: 300px;
+  width: 100%;
+  box-sizing: border-box;
   border: solid #222 1px;
   border-radius: 8px;
-  height: 20px;
-  font-size: 12px;
+  min-height: 45px;
+  font-size: 14px;
 }
 
 select {
@@ -265,22 +292,41 @@ select {
 }
 
 #opcionais-subtitulo {
-  display: flex;
-  align-items: flex-start;
-  align-content: center;
-  width: 100%;
-  margin-bottom: 12px;
+  display: none;
+}
+
+.campo-ajuda {
+  margin: -4px 0 12px;
+  color: #666;
+  text-align: left;
+}
+
+.opcoes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.checkbox-container {
+  align-items: center;
+  border: 1px solid #e5e7eb;
+  border-left: 4px solid #f97316;
+  border-radius: 8px;
+  cursor: pointer;
+  gap: 8px;
+  margin: 0;
+  padding: 10px;
 }
 
 .checkbox-container span {
-  margin-left: 6px;
   font-weight: bold;
+  text-align: left;
 }
 
-.checkbox-container span,
 .checkbox-container input {
   width: auto;
-  height: 20px;
+  min-height: auto;
 }
 
 .submit-btn {

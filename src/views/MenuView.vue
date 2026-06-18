@@ -1,18 +1,14 @@
 <template>
-  <div>
+  <div class="menu-page">
     <h1>Cardapio</h1>
-    <div id="scroll-horizontal">
+    <div id="lista-cardapio">
       <div id="card-content" v-for="pizza in listaMenuPizzas" :key="pizza.id">
-        <div id="card-linha">
-          <div class="foto-pizza">
-            <img :src="pizza.foto" />
-            <div class="card-coluna">
-              <p id="nome-content">{{ pizza.nome }}</p>
-              <p id="preco-content">R$ {{ pizza.valor }},00</p>
-              <p id="descricao-content">{{ pizza.descricao }}</p>
-              <button @click="selecionarPizza(pizza)">Selecionar</button>
-            </div>
-          </div>
+        <img class="foto-pizza" :src="pizza.foto" />
+        <div class="card-coluna">
+          <p id="nome-content">{{ pizza.nome }}</p>
+          <p id="preco-content">R$ {{ pizza.valor }},00</p>
+          <p id="descricao-content">{{ pizza.descricao }}</p>
+          <button @click="selecionarPizza(pizza)">Selecionar</button>
         </div>
       </div>
     </div>
@@ -49,40 +45,37 @@ export default {
 </script>
 
 <style scoped>
+.menu-page {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto 48px;
+}
+
 #card-content {
-  display: inline-block;
-  width: 280px;
-  min-height: 500px;
-  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 470px;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 8px #444;
-  position: relative;
+  background: white;
 }
 
-#scroll-horizontal {
-  flex: 1;
-  overflow-x: auto;
-  white-space: nowrap;
-  width: min(900px, 100%);
-  margin: 0 auto;
-  box-shadow: inset -10px 0px 15px -20px grey;
+#lista-cardapio {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin: 28px auto 0;
 }
 
 #nome-content {
   font-size: 30px;
   font-weight: bold;
   text-align: center;
-  width: 100%;
-  margin: 12px;
+  margin: 0 0 10px;
 }
 
 .foto-pizza {
-  flex-shrink: 0;
-}
-
-.foto-pizza img {
   width: 100%;
   height: 200px;
   object-fit: cover;
@@ -93,13 +86,14 @@ export default {
   font-weight: bold;
   text-align: center;
   color: #15803d;
+  margin: 0 0 10px;
 }
 
 #descricao-content {
   font-size: 16px;
   text-align: left;
   color: #555;
-  margin: 16px;
+  margin: 0 0 18px;
   white-space: pre-line;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -108,19 +102,15 @@ export default {
   -webkit-box-orient: vertical;
 }
 
-.card-linha {
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-}
-
 .card-coluna {
-  flex-grow: 1;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   padding: 15px;
-  height: 100%;
 }
 
 .card-coluna button {
+  margin-top: auto;
   padding: 10px;
   width: 100%;
   border-radius: 8px;
