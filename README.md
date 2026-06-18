@@ -106,3 +106,7 @@ O projeto possui workflow em `.github/workflows/pages.yml` para:
 - publicar automaticamente no GitHub Pages quando houver push na branch `main`.
 
 O banco JSON possui estrutura separada na pasta `banco-json`, pronta para ser enviada para um segundo repositorio e publicada como JSON Server.
+
+## Validacao por Pull Request
+
+Este repositorio possui GitHub Actions configurado para validar pull requests antes da entrega final.
