@@ -79,12 +79,12 @@ this.listaPedidosRealizados = this.listaPedidosRealizados.filter(
 
 ## Links do Projeto
 
-- API JSON Server: `https://api-tpizza-artesanal.onrender.com`
-- Endpoint do cardapio: `https://api-tpizza-artesanal.onrender.com/menu`
-- Endpoint dos pedidos: `https://api-tpizza-artesanal.onrender.com/pedidos`
-- Producao GitHub Pages: `https://hebermacedo.github.io/tpizza-artesanal/`
-- Repositorio do front-end: `https://github.com/HeberMacedo/tpizza-artesanal`
-- Repositorio do banco-json: `https://github.com/HeberMacedo/banco-json`
+- API JSON Server: [https://api-tpizza-artesanal.onrender.com](https://api-tpizza-artesanal.onrender.com)
+- Endpoint do cardapio: [https://api-tpizza-artesanal.onrender.com/menu](https://api-tpizza-artesanal.onrender.com/menu)
+- Endpoint dos pedidos: [https://api-tpizza-artesanal.onrender.com/pedidos](https://api-tpizza-artesanal.onrender.com/pedidos)
+- Producao GitHub Pages: [https://hebermacedo.github.io/tpizza-artesanal/](https://hebermacedo.github.io/tpizza-artesanal/)
+- Repositorio do front-end: [https://github.com/HeberMacedo/tpizza-artesanal](https://github.com/HeberMacedo/tpizza-artesanal)
+- Repositorio do banco-json: [https://github.com/HeberMacedo/banco-json](https://github.com/HeberMacedo/banco-json)
 
 ## Como executar localmente
 
