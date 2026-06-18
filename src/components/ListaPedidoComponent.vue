@@ -1,70 +1,73 @@
 <template>
-  <div>
+  <div class="pedidos-page">
     <alerta-component-vue :tipo="alerta.tipo" :mensagem="alerta.mensagem" />
 
     <div id="pedidos-tabela">
-      <div>
-        <div id="pedidos-tabela-cabecalho">
-          <div id="ordem-id">#ID</div>
-          <div>Cliente</div>
-          <div>Pizza</div>
-          <div>Tamanho</div>
-          <div>Sabores e itens</div>
-          <div>Status</div>
-          <div id="div-acoes">Acoes</div>
-        </div>
+      <div id="pedidos-tabela-cabecalho">
+        <div>#ID</div>
+        <div>Cliente</div>
+        <div>Pizza</div>
+        <div>Tamanho</div>
+        <div>Sabores e itens</div>
+        <div>Status</div>
+        <div>Acoes</div>
       </div>
-    </div>
 
-    <div
-      class="pedidos-tabela-linha"
-      v-for="pedido in listaPedidosRealizados"
-      :key="pedido.id"
-    >
-      <div id="ordem-numero">{{ pedido.id }}</div>
-      <div>{{ pedido.nome }}</div>
-      <div>{{ pedido.pizza.nome }}</div>
-      <div>{{ pedido.tamanho.descricao }}</div>
-      <div>
-        <strong>Sabores</strong>
-        <ul>
-          <li v-for="(sabor, index) in pedido.sabores" :key="index">
-            {{ sabor.nome }}
-          </li>
-        </ul>
-        <div v-if="pedido.borda">
-          <strong>Borda</strong>
-          <p>{{ pedido.borda.nome }}</p>
+      <div
+        class="pedidos-tabela-linha"
+        v-for="pedido in listaPedidosRealizados"
+        :key="pedido.id"
+      >
+        <div class="pedido-id">{{ pedido.id }}</div>
+        <div class="pedido-cliente">{{ pedido.nome }}</div>
+        <div>{{ pedido.pizza.nome }}</div>
+        <div>{{ pedido.tamanho.descricao }}</div>
+        <div class="pedido-itens">
+          <p class="grupo-titulo">Sabores</p>
+          <div class="etiquetas">
+            <span v-for="(sabor, index) in pedido.sabores" :key="index">
+              {{ sabor.nome }}
+            </span>
+          </div>
+
+          <div v-if="pedido.borda">
+            <p class="grupo-titulo">Borda</p>
+            <div class="etiquetas">
+              <span>{{ pedido.borda.nome }}</span>
+            </div>
+          </div>
+
+          <div v-if="pedido.bebidas.length">
+            <p class="grupo-titulo">Bebidas</p>
+            <div class="etiquetas">
+              <span v-for="(bebida, index) in pedido.bebidas" :key="index">
+                {{ bebida.nome }}
+              </span>
+            </div>
+          </div>
         </div>
-        <div class="divider"></div>
-        <strong>Bebidas</strong>
-        <ul>
-          <li v-for="(bebida, index) in pedido.bebidas" :key="index">
-            {{ bebida.nome }}
-          </li>
-        </ul>
-      </div>
-      <div>
-        <select
-          @change="atualizarStatusPedido($event, pedido.id)"
-          name="status"
-          class="status"
-        >
-          <option value="">Selecione</option>
-          <option
-            v-for="status in listaStatusPedido"
-            :key="status.id"
-            :value="status.id"
-            :selected="status.id == pedido.statusId"
+        <div>
+          <select
+            @change="atualizarStatusPedido($event, pedido.id)"
+            name="status"
+            class="status"
           >
-            {{ status.descricao }}
-          </option>
-        </select>
-      </div>
-      <div id="div-acoes">
-        <button class="botao-excluir" @click="deletarPedido(pedido.id)">
-          X
-        </button>
+            <option value="">Selecione</option>
+            <option
+              v-for="status in listaStatusPedido"
+              :key="status.id"
+              :value="status.id"
+              :selected="status.id == pedido.statusId"
+            >
+              {{ status.descricao }}
+            </option>
+          </select>
+        </div>
+        <div>
+          <button class="botao-excluir" @click="deletarPedido(pedido.id)">
+            X
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -145,54 +148,83 @@ export default {
 </script>
 
 <style scoped>
+.pedidos-page {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto 56px;
+}
+
 #pedidos-tabela {
   width: 100%;
-  margin: 0 auto;
+  margin: 28px auto 0;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
 }
 
 #pedidos-tabela-cabecalho,
-#pedidos-tabela-linhas,
 .pedidos-tabela-linha {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 60px 1fr 1.5fr 1.2fr 2fr 170px 80px;
+  gap: 16px;
+  align-items: start;
 }
 
 #pedidos-tabela-cabecalho {
   font-weight: bold;
-  padding: 12px;
-  border-bottom: 2px solid #222;
-}
-
-#pedidos-tabela-cabecalho div,
-.pedidos-tabela-linha div {
-  width: 18%;
-}
-
-.pedidos-tabela-linha {
-  width: 100%;
-  padding: 12px;
-  border-bottom: 1px dotted #222;
+  padding: 14px 18px;
+  color: #7f1d1d;
+  background: #fff7ed;
+  border-bottom: 1px solid #fed7aa;
   text-align: left;
 }
 
-.pedidos-tabela-linha ul {
-  padding-left: 18px;
+.pedidos-tabela-linha {
+  padding: 18px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
 }
 
-.pedidos-tabela-linha p {
-  margin: 6px 0;
+.pedidos-tabela-linha:last-child {
+  border-bottom: none;
 }
 
-#pedidos-tabela-cabecalho #ordem-id,
-.pedidos-tabela-linha #ordem-numero,
-.pedidos-tabela-linha #div-acoes,
-#pedidos-tabela-cabecalho #div-acoes {
-  width: 5%;
+.pedido-id,
+.pedido-cliente {
+  font-weight: bold;
+}
+
+.grupo-titulo {
+  margin: 0 0 8px;
+  font-weight: bold;
+  color: #222;
+}
+
+.etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.etiquetas span {
+  display: inline-flex;
+  padding: 5px 8px;
+  border-radius: 8px;
+  color: #7f1d1d;
+  background: #ffedd5;
+  font-size: 13px;
+  font-weight: bold;
 }
 
 .status {
-  width: 150px;
-  min-height: 40px;
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  padding: 8px;
+  background: white;
 }
 
 .botao-excluir {
@@ -208,5 +240,16 @@ export default {
 
 .botao-excluir:hover {
   background: #7f1d1d;
+}
+
+@media (max-width: 900px) {
+  #pedidos-tabela-cabecalho {
+    display: none;
+  }
+
+  .pedidos-tabela-linha {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
 }
 </style>
