@@ -6,6 +6,14 @@ Projeto final de Desenvolvimento Web com Vue 3, evoluido a partir da base estrut
 
 O sistema foi customizado para o segmento de pizzaria artesanal. A identidade visual, textos, imagens, campos de formulario, dados da API e regras de pedido foram atualizados para representar a marca **T-Pizza Artesanal**.
 
+Tecnologias utilizadas:
+
+- Vue 3
+- Vue Router
+- JSON Server
+- GitHub Pages
+- Render
+
 Principais alteracoes realizadas:
 
 - Nome e identidade visual substituidos de T-Burguer para T-Pizza Artesanal.
@@ -72,6 +80,8 @@ this.listaPedidosRealizados = this.listaPedidosRealizados.filter(
 ## Links do Projeto
 
 - API JSON Server: `https://api-tpizza-artesanal.onrender.com`
+- Endpoint do cardapio: `https://api-tpizza-artesanal.onrender.com/menu`
+- Endpoint dos pedidos: `https://api-tpizza-artesanal.onrender.com/pedidos`
 - Producao GitHub Pages: `https://hebermacedo.github.io/tpizza-artesanal/`
 - Repositorio do front-end: `https://github.com/HeberMacedo/tpizza-artesanal`
 - Repositorio do banco-json: `https://github.com/HeberMacedo/banco-json`
